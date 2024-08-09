@@ -1,0 +1,58 @@
+<div class="flex flex-col h-full">
+
+    <div class="flex flex-col flex-auto relative overflow-hidden">
+
+        @if (loading) {
+            <mat-progress-bar class="!absolute top-0 z-50" mode="indeterminate"></mat-progress-bar>
+        }
+
+        <!-- #region Header -->
+        <div class="flex flex-row items-center justify-between gap-3 px-3 sm:px-6 py-4 bg-card">
+
+            <div class="flex flex-col">
+                <div class="text-2xl">
+                    Games list
+                </div>
+            </div>
+
+        </div>
+        <!-- #endregion -->
+
+        <!-- #region Table -->
+        <div #tableContainer class="flex flex-col flex-auto overflow-auto">
+
+            <table class="my-table bg-card">
+                <thead class="sticky top-0 z-10">
+                    <tr>
+                        <th class="w-32 sm:min-w-32">gameid</th>
+                        <th class="w-32 sm:min-w-32">gamedate</th>
+                        <th class="w-32 sm:min-w-32">visitor</th>
+                        <th class="w-32 sm:min-w-32">home</th>
+                        <th class="w-14 min-w-14"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (game of games; track game.gameid) {
+                        <tr>
+                            <td>{{ game.gameid }}</td>
+                            <td>{{ game.gamedate }}</td>
+                            <td>{{ game.visitor }}</td>
+                            <td>{{ game.home }}</td>
+                            <td>
+                                <div class="flex flex-row items-center justify-end">
+                                    <a mat-icon-button [routerLink]="game.gameid" matTooltip="Go to game detail">
+                                        <mat-icon>open_in_new</mat-icon>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+        <!-- #endregion -->
+
+    </div>
+
+</div>

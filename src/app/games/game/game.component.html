@@ -1,0 +1,56 @@
+<div class="flex flex-col h-full">
+
+    @if (loading) {
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    }
+
+    @if (game) {
+
+        <div class="flex flex-col flex-auto relative">
+
+            <!-- #region Header -->
+            <div class="flex flex-row items-center gap-3 p-4 bg-card border-b">
+
+                <button mat-icon-button matTooltip="Back to games list" [routerLink]="['..']">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <div class="flex flex-col">
+                    <div class="text-xl">
+                        {{ game.events[0].home.name }}
+                        -
+                        {{ game.events[0].visitor.name }}
+                    </div>
+                    <div class="italic">
+                        {{ game.gamedate }}
+                    </div>
+                </div>
+
+            </div>
+            <!-- #endregion -->
+
+            <mat-tab-group class="heart-tab-group w-full" [mat-stretch-tabs]="false" [selectedIndex]="3">
+
+                <mat-tab label="Summary">
+
+                </mat-tab>
+
+                <mat-tab label="Box score">
+
+                </mat-tab>
+
+                <mat-tab label="Play by Play">
+
+                </mat-tab>
+
+                <mat-tab label="Statistics">
+                    <app-game-statistics [game]="game"></app-game-statistics>
+                </mat-tab>
+
+            </mat-tab-group>
+
+        </div>
+
+    }
+
+</div>
