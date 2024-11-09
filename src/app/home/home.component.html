@@ -1,0 +1,23 @@
+<div class="flex flex-col items-center justify-center p-6 sm:p-8">
+
+    <div class="text-gray-500 text-7xl mb-6">
+        Home
+    </div>
+
+    <div class="flex flex-row items-center justify-center gap-6 border rounded p-6">
+
+        <mat-form-field class="form-field-dense" appearance="outline" subscriptSizing="dynamic">
+            <input matInput [(ngModel)]="parametroUno" type="number">
+        </mat-form-field>
+
+        <mat-form-field class="form-field-dense" appearance="outline" subscriptSizing="dynamic">
+            <input matInput [(ngModel)]="parametroDue" type="number">
+        </mat-form-field>
+
+        <button mat-flat-button (click)="testPython()">
+            Test python
+        </button>
+
+    </div>
+
+</div>

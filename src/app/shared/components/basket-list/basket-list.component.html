@@ -1,0 +1,77 @@
+<div class="flex flex-col h-full">
+
+    <div class="flex flex-col flex-auto relative overflow-hidden">
+
+        @if (rowsLoading) {
+            <mat-progress-bar class="!absolute top-0 z-50" mode="indeterminate"></mat-progress-bar>
+        }
+
+        <!-- #region Header -->
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-6 px-3 sm:px-6 py-4 bg-card">
+
+            <div class="flex flex-col">
+                <div class="text-2xl">
+                    List
+                </div>
+                <div class="text-sm">
+                    {{ rowsCount != null ? rowsCount : '?' }} records found
+                </div>
+            </div>
+
+            <div class="flex flex-row items-center justify-end gap-6 w-full sm:w-auto">
+
+                <mat-form-field class="form-field-dense w-full sm:w-60" appearance="outline" subscriptSizing="dynamic">
+                    <mat-icon matPrefix>search</mat-icon>
+                    <input matInput [formControl]="searchControl" name="search" type="text" placeholder="Search...">
+                </mat-form-field>
+
+            </div>
+
+        </div>
+        <!-- #endregion -->
+
+        <!-- #region Table -->
+        <div #tableContainer class="flex flex-col flex-auto overflow-auto">
+
+            <table class="basket-table bg-card" matSort [matSortDisableClear]="true" (matSortChange)="handleSortChange()">
+                <thead class="sticky top-0 z-10">
+                    <tr>
+                        @for (column of columns; track $index) {
+                            <th [mat-sort-header]="column" class="min-w-16">
+                                {{ column }}
+                            </th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (row of rows; track row.id) {
+                        <tr>
+                            @for (column of columns; track $index) {
+                                <td class="whitespace-nowrap">
+                                    {{ row[column] }}
+                                </td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+        <!-- #endregion -->
+
+        <!-- #region Footer -->
+        <div class="flex flex-row items-center justify-end gap-6 px-3 sm:px-6 py-3 bg-card border-t">
+
+            <mat-paginator
+                [length]="rowsCount"
+                [pageSize]="25"
+                [pageSizeOptions]="[25, 50, 100]"
+                (page)="handlePageChange()"
+            ></mat-paginator>
+
+        </div>
+        <!-- #endregion -->
+
+    </div>
+
+</div>

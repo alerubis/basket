@@ -43,7 +43,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 @tailwind components;
 @tailwind utilities;
 
-.my-table {
+@include mat.table-density(-3);
+@include mat.form-field-density(-3);
+
+.basket-table {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
@@ -53,7 +56,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
             padding: 8px 12px;
             font-weight: 500;
             font-size: 14px !important;
-            @apply bg-slate-200 text-left border-t;
+            border-top: 1px solid rgba(0, 0, 0, 0.12);
+            @apply bg-slate-200 text-left;
         }
     }
 
@@ -81,14 +85,18 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
         border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 
         &:first-of-type {
-            padding-left: 12px;
+            padding-left: 24px;
         }
 
         &:last-of-type {
-            padding-right: 12px;
+            padding-right: 24px;
         }
     }
 
+}
+
+.form-field-dense {
+    @include mat.form-field-density(-3);
 }
 
 .mat-mdc-dialog-surface {
