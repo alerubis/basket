@@ -38,13 +38,18 @@ export class AppComponent {
                     url: 'home'
                 },
                 {
-                    title: 'Teams',
+                    title: 'Games',
                     icon: 'sports_basketball',
+                    url: 'games'
+                },
+                {
+                    title: 'Teams',
+                    icon: 'groups',
                     url: 'teams'
                 },
                 {
                     title: 'Players',
-                    icon: 'people',
+                    icon: 'person',
                     url: 'players'
                 },
                 {

@@ -1,0 +1,68 @@
+<div class="flex flex-row gap-6 w-full h-full p-6 sm:p-8">
+
+    <div class="flex flex-col gap-6 w-full h-full">
+
+        <div class="basket-card w-full h-full">
+            video
+        </div>
+
+        <div class="basket-card w-full h-60">
+            <mat-tab-group class="h-full">
+                <mat-tab label="Serve altro qui?">
+
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+
+    </div>
+
+    <div class="flex flex-col gap-6 w-[32rem]">
+
+        <div class="basket-card w-full h-2/5">
+            <mat-tab-group>
+                <mat-tab label="Summary">
+
+                </mat-tab>
+                <mat-tab label="Shots">
+
+                </mat-tab>
+                <mat-tab label="Assists">
+
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+
+        <div class="basket-card w-full h-3/5">
+            <mat-tab-group class="h-full">
+                <mat-tab label="Cronistoria">
+                    <div class="overflow-y-auto">
+                        <ol>
+                            @for (action of actions; track $index; let first = $first, last = $last) {
+                                <li class="relative flex p-3 cursor-pointer hover:bg-gray-100" [ngClass]="{'opacity-30': !last}">
+                                    @if (!last) {
+                                        <div class="absolute top-3 left-8 w-0.5 h-full -ml-px bg-gray-300"></div>
+                                    }
+                                    <div class="relative flex flex-auto">
+                                        <div class="flex items-center justify-center w-10 h-10 mr-4 rounded-full bg-gray-500">
+                                            <mat-icon class="text-white">{{ action.icon }}</mat-icon>
+                                        </div>
+                                        <div class="flex flex-col flex-auto items-start">
+                                            <div>
+                                                {{ action.description }}
+                                            </div>
+                                            <div class="text-secondary text-sm">
+                                                {{ action.time }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        </ol>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+
+    </div>
+
+</div>

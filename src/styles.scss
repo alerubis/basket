@@ -46,6 +46,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 @include mat.table-density(-3);
 @include mat.form-field-density(-3);
 
+.basket-card {
+    @apply border rounded-lg shadow bg-white;
+}
+
 .basket-table {
     width: 100%;
     border-collapse: separate;
