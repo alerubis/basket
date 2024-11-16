@@ -1,4 +1,4 @@
-# basketws
+# basket
 
 Parte frontend scritta in Angular
 
