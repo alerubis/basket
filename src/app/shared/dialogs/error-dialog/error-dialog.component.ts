@@ -25,16 +25,24 @@ export interface ErrorDialogData {
 })
 export class ErrorDialogComponent {
 
-    message: string = '';
-    error: any = '';
+    error: any = {};
     showFullError: boolean = false;
 
     constructor(
         @Inject(MAT_DIALOG_DATA) private _data: ErrorDialogData,
         private _dialogRef: MatDialogRef<ErrorDialogComponent>,
     ) {
-        this.message = this._data.message;
         this.error = this._data.error;
+    }
+
+    getBestError(): any {
+        let bestError = this.error;
+        if (this.error.error && typeof this.error.error === 'string') {
+            bestError = this.error.error;
+        } else if (this.error.message) {
+            bestError = this.error.message;
+        }
+        return bestError;
     }
 
     //#region Actions

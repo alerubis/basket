@@ -1,0 +1,139 @@
+<div class="flex flex-col h-full overflow-auto">
+
+    <div class="flex flex-col flex-auto relative">
+
+        @if (gameLoading) {
+            <mat-progress-bar class="!absolute top-0 z-50" mode="indeterminate"></mat-progress-bar>
+        }
+
+        <!-- #region Header -->
+        <div class="flex flex-row items-center gap-3 px-3 sm:px-6 py-4 bg-card border-b">
+
+            <button mat-icon-button matTooltip="Back to games list" [routerLink]="['..']">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+
+            @if (!gameLoading && !game) {
+                <app-message-box class="w-full" [type]="'error'" [message]="'Game not found'"></app-message-box>
+            } @else {
+                <div class="flex flex-row items-center gap-4">
+                    <mat-icon>home</mat-icon>
+                    <div class="flex flex-col">
+                        <div class="text-2xl">
+                            {{ game?.home_team }} - {{ game?.visitor_team }}
+                        </div>
+                        <div class="text-sm">
+                            {{ game?.date | date : 'dd/MM/YYYY HH:mm' }}
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+        <!-- #endregion -->
+
+        <div class="flex flex-row gap-6 w-full h-[calc(100vh-48px)] p-6 sm:p-8">
+
+            <div class="flex flex-col gap-6 w-full h-full">
+
+                <div class="basket-card w-full h-full">
+                    <mat-tab-group class="basket-tab-group" [mat-stretch-tabs]="false">
+                        <mat-tab label="Video">
+                            <div class="flex flex-col flex-auto w-full h-full">
+                                <youtube-player
+                                    #youtubePlayer
+                                    [videoId]="game?.youtube_video_id"
+                                    (stateChange)="onPlayerStateChange($event)"/>
+                            </div>
+                        </mat-tab>
+                        <mat-tab label="Movements">
+                            qui invece del video la rappresentazione grafica del campo con i movimenti dei giocatori?
+                        </mat-tab>
+                    </mat-tab-group>
+                </div>
+
+                <div class="basket-card w-full h-60">
+                    <mat-tab-group class="h-full" [mat-stretch-tabs]="false">
+                        <mat-tab label="Serve altro qui?">
+
+                        </mat-tab>
+                    </mat-tab-group>
+                </div>
+
+            </div>
+
+            <div class="flex flex-col gap-6 w-[32rem]">
+
+                <div class="basket-card w-full h-3/5">
+                    <mat-tab-group class="h-full" [mat-stretch-tabs]="false">
+                        <mat-tab label="Timeline">
+                            <div class="flex flex-col h-full">
+                                <div #timelineContainer class="h-full overflow-y-auto">
+                                    <ol>
+                                        @for (gameEvent of gameEvents; track $index; let first = $first, last = $last) {
+                                            <li class="relative flex p-3 cursor-pointer hover:bg-gray-100"
+                                                [ngClass]="{
+                                                    'previous-event opacity-30': isPreviousGameEvent(gameEvent),
+                                                    'current-event bg-blue-200': isCurrentGameEvent(gameEvent),
+                                                    'next-event': isNextGameEvent(gameEvent),
+                                                }"
+                                                (click)="handleGameEventClick(gameEvent)">
+                                                @if (!last) {
+                                                    <div class="absolute top-3 left-8 w-0.5 h-full -ml-px bg-gray-300"></div>
+                                                }
+                                                <div class="relative flex flex-auto">
+                                                    <div class="flex items-center justify-center w-10 h-10 mr-4 rounded-full" [ngClass]="isCurrentGameEvent(gameEvent) ? 'bg-blue-500' : 'bg-gray-500'">
+                                                        <mat-icon class="text-white">{{ getGameEventTypeIcon(gameEvent.game_event_type_id) }}</mat-icon>
+                                                    </div>
+                                                    <div class="flex flex-col flex-auto items-start">
+                                                        <div>
+                                                            {{ gameEvent.description }}
+                                                        </div>
+                                                        <div class="text-gray-600 text-xs">
+                                                            {{ gameEvent.from_time | number : '1.2-2' }} - {{ gameEvent.getToTime() | number : '1.2-2' }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        }
+                                    </ol>
+                                </div>
+                                <div class="flex flex-row items-center justify-between gap-6 bg-gray-100 border-t px-2 py-1">
+                                    <div class="text-sm">
+                                        Current time: {{ currentTime | number : '1.2-2' }}
+                                    </div>
+                                    <div class="flex items-center cursor-pointer" [matTooltip]="autoScroll ? 'Disable autoscroll' : 'Enable autoscroll'" (click)="autoScroll = !autoScroll">
+                                        @if (autoScroll) {
+                                            <mat-icon>sync</mat-icon>
+                                        } @else {
+                                            <mat-icon>sync_disabled</mat-icon>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-tab>
+                    </mat-tab-group>
+                </div>
+
+                <div class="basket-card w-full h-2/5">
+                    <mat-tab-group class="h-full" [mat-stretch-tabs]="false">
+                        <mat-tab label="Summary">
+
+                        </mat-tab>
+                        <mat-tab label="Shots">
+
+                        </mat-tab>
+                        <mat-tab label="Assists">
+
+                        </mat-tab>
+                    </mat-tab-group>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>

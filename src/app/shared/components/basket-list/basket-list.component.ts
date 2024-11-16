@@ -40,6 +40,7 @@ import { Table } from '../../types/db/Table';
 export class BasketListComponent implements OnInit {
 
     @Input({required: true}) table!: Table;
+    @Input() routing: boolean = false;
 
     columns: string[] = [];
 

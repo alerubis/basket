@@ -41,12 +41,10 @@ export class WsService {
 
     handleError(error: any, observer: Subscriber<any>) {
         console.error(error);
-        const betterErrorMessage = error?.error?.message || error?.message || error;
-        const dialogRef = this._matDialog.open(ErrorDialogComponent, {
+        this._matDialog.open(ErrorDialogComponent, {
             width: '100%',
             maxWidth: '640px',
             data: {
-                message: betterErrorMessage,
                 error: error,
             },
         });

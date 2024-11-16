@@ -26,6 +26,7 @@ $basket-theme: mat.define-theme((
 // that you are using.
 :root {
     @include mat.all-component-themes($basket-theme);
+    @include mat.color-variants-backwards-compatibility($basket-theme);
 }
 
 // Comment out the line below if you want to use the pre-defined typography utility classes.
@@ -43,11 +44,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 @tailwind components;
 @tailwind utilities;
 
+@include mat.tabs-density(-1);
 @include mat.table-density(-3);
 @include mat.form-field-density(-3);
 
+.bg-card {
+    background-color: mat.get-theme-color($basket-theme, 'surface') !important;
+}
+
 .basket-card {
-    @apply border rounded-lg shadow bg-white;
+    @apply border rounded-lg shadow bg-card;
 }
 
 .basket-table {
@@ -103,6 +109,24 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     @include mat.form-field-density(-3);
 }
 
+.button-dense {
+    @include mat.button-density(-5);
+    @include mat.icon-density(-5);
+    @include mat.icon-button-density(-5);
+}
+
+.basket-tab-group {
+    height: 100%;
+
+    .mat-mdc-tab-body-wrapper {
+        height: 100%;
+
+        .mat-mdc-tab-body {
+            height: 100%;
+        }
+    }
+}
+
 .mat-mdc-dialog-surface {
     overflow: hidden !important;
 
@@ -115,4 +139,18 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     .dialog-actions {
         @apply flex flex-row items-center justify-end gap-4 p-4 sm:p-6;
     }
+}
+
+.small-icon {
+    width: 20px !important;
+    height: 20px !important;
+    font-size: 20px;
+    line-height: 20px;
+}
+
+youtube-player,
+youtube-player > *,
+youtube-player iframe {
+  width: 100% !important;
+  height: 100% !important;
 }

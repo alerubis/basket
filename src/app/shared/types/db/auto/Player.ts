@@ -26,14 +26,14 @@ export class Player implements Table {
 
     fromDbValues(values: any): Player {
         const newPlayer = new Player();
-        newPlayer.id = values.id;
+        newPlayer.id = DbUtils.stringToNumber(values.id);
         newPlayer.name = values.name;
         return newPlayer;
     }
 
     toDbValues(): any {
         return {
-            id: this.id,
+            id: DbUtils.numberToString(this.id),
             name: this.name,
         }
     }

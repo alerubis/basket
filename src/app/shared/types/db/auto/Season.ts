@@ -26,14 +26,14 @@ export class Season implements Table {
 
     fromDbValues(values: any): Season {
         const newSeason = new Season();
-        newSeason.id = values.id;
+        newSeason.id = DbUtils.stringToNumber(values.id);
         newSeason.name = values.name;
         return newSeason;
     }
 
     toDbValues(): any {
         return {
-            id: this.id,
+            id: DbUtils.numberToString(this.id),
             name: this.name,
         }
     }

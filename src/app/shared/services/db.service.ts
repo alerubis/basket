@@ -13,7 +13,7 @@ export class DbService {
     constructor(private _wsService: WsService) {
     }
 
-    readList(table: Table, where: any, paginator?: MatPaginator, sort?: MatSort): Observable<{ rows: Table[], count: number }> {
+    readList(table: Table, where?: any, paginator?: MatPaginator, sort?: MatSort): Observable<{ rows: Table[], count: number }> {
         return new Observable((observer) => {
             this._wsService.wsCall('db/' + table.getName() + '/read', {
                 skip: (paginator?.pageIndex || 0) * (paginator?.pageSize || 25),

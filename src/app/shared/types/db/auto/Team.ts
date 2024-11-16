@@ -26,14 +26,14 @@ export class Team implements Table {
 
     fromDbValues(values: any): Team {
         const newTeam = new Team();
-        newTeam.id = values.id;
+        newTeam.id = DbUtils.stringToNumber(values.id);
         newTeam.name = values.name;
         return newTeam;
     }
 
     toDbValues(): any {
         return {
-            id: this.id,
+            id: DbUtils.numberToString(this.id),
             name: this.name,
         }
     }

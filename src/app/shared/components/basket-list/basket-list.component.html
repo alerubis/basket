@@ -41,6 +41,11 @@
                                 {{ column }}
                             </th>
                         }
+                        @if (routing) {
+                            <th class="w-12">
+
+                            </th>
+                        }
                     </tr>
                 </thead>
                 <tbody>
@@ -49,6 +54,13 @@
                             @for (column of columns; track $index) {
                                 <td class="whitespace-nowrap">
                                     {{ row[column] }}
+                                </td>
+                            }
+                            @if (routing) {
+                                <td>
+                                    <a [routerLink]="[row.id]">
+                                        <mat-icon class="small-icon">open_in_new_tab</mat-icon>
+                                    </a>
                                 </td>
                             }
                         </tr>

@@ -14,4 +14,18 @@ export class DbUtils {
         return undefined;
     }
 
+    public static numberToString(value: number | undefined): string | undefined {
+        if (value) {
+            return value.toString();
+        }
+        return undefined;
+    }
+
+    public static stringToNumber(value: string | undefined): number | undefined {
+        if (value) {
+            return +value;
+        }
+        return undefined;
+    }
+
 }

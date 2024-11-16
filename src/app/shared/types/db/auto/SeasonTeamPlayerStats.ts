@@ -11,17 +11,17 @@ export class SeasonTeamPlayerStats implements Table {
     minutes_played: number | undefined;
     field_goals: number | undefined;
     field_goal_attempts: number | undefined;
-    field_goal_percentage: any | undefined;
+    field_goal_percentage: number | undefined;
     three_point_field_goals: number | undefined;
-    three_point_field_goal_attemps: number | undefined;
-    three_point_field_goal_percentage: any | undefined;
+    three_point_field_goal_attempts: number | undefined;
+    three_point_field_goal_percentage: number | undefined;
     two_point_field_goals: number | undefined;
     two_point_field_goal_attempts: number | undefined;
-    two_point_field_goal_percentage: any | undefined;
-    effective_field_goal_percentage: any | undefined;
+    two_point_field_goal_percentage: number | undefined;
+    effective_field_goal_percentage: number | undefined;
     free_throws: number | undefined;
     free_throw_attempts: number | undefined;
-    free_throw_percentage: any | undefined;
+    free_throw_percentage: number | undefined;
     offensive_rebounds: number | undefined;
     difensive_rebounds: number | undefined;
     total_rebounds: number | undefined;
@@ -44,7 +44,7 @@ export class SeasonTeamPlayerStats implements Table {
             this.field_goal_attempts = values.field_goal_attempts;
             this.field_goal_percentage = values.field_goal_percentage;
             this.three_point_field_goals = values.three_point_field_goals;
-            this.three_point_field_goal_attemps = values.three_point_field_goal_attemps;
+            this.three_point_field_goal_attempts = values.three_point_field_goal_attempts;
             this.three_point_field_goal_percentage = values.three_point_field_goal_percentage;
             this.two_point_field_goals = values.two_point_field_goals;
             this.two_point_field_goal_attempts = values.two_point_field_goal_attempts;
@@ -81,7 +81,7 @@ export class SeasonTeamPlayerStats implements Table {
             'field_goal_attempts',
             'field_goal_percentage',
             'three_point_field_goals',
-            'three_point_field_goal_attemps',
+            'three_point_field_goal_attempts',
             'three_point_field_goal_percentage',
             'two_point_field_goals',
             'two_point_field_goal_attempts',
@@ -104,67 +104,67 @@ export class SeasonTeamPlayerStats implements Table {
 
     fromDbValues(values: any): SeasonTeamPlayerStats {
         const newSeasonTeamPlayerStats = new SeasonTeamPlayerStats();
-        newSeasonTeamPlayerStats.id = values.id;
-        newSeasonTeamPlayerStats.season_id = values.season_id;
-        newSeasonTeamPlayerStats.team_id = values.team_id;
-        newSeasonTeamPlayerStats.player_id = values.player_id;
-        newSeasonTeamPlayerStats.games = values.games;
-        newSeasonTeamPlayerStats.minutes_played = values.minutes_played;
-        newSeasonTeamPlayerStats.field_goals = values.field_goals;
-        newSeasonTeamPlayerStats.field_goal_attempts = values.field_goal_attempts;
-        newSeasonTeamPlayerStats.field_goal_percentage = values.field_goal_percentage;
-        newSeasonTeamPlayerStats.three_point_field_goals = values.three_point_field_goals;
-        newSeasonTeamPlayerStats.three_point_field_goal_attemps = values.three_point_field_goal_attemps;
-        newSeasonTeamPlayerStats.three_point_field_goal_percentage = values.three_point_field_goal_percentage;
-        newSeasonTeamPlayerStats.two_point_field_goals = values.two_point_field_goals;
-        newSeasonTeamPlayerStats.two_point_field_goal_attempts = values.two_point_field_goal_attempts;
-        newSeasonTeamPlayerStats.two_point_field_goal_percentage = values.two_point_field_goal_percentage;
-        newSeasonTeamPlayerStats.effective_field_goal_percentage = values.effective_field_goal_percentage;
-        newSeasonTeamPlayerStats.free_throws = values.free_throws;
-        newSeasonTeamPlayerStats.free_throw_attempts = values.free_throw_attempts;
-        newSeasonTeamPlayerStats.free_throw_percentage = values.free_throw_percentage;
-        newSeasonTeamPlayerStats.offensive_rebounds = values.offensive_rebounds;
-        newSeasonTeamPlayerStats.difensive_rebounds = values.difensive_rebounds;
-        newSeasonTeamPlayerStats.total_rebounds = values.total_rebounds;
-        newSeasonTeamPlayerStats.assists = values.assists;
-        newSeasonTeamPlayerStats.steals = values.steals;
-        newSeasonTeamPlayerStats.blocks = values.blocks;
-        newSeasonTeamPlayerStats.turnovers = values.turnovers;
-        newSeasonTeamPlayerStats.personal_fouls = values.personal_fouls;
-        newSeasonTeamPlayerStats.points = values.points;
+        newSeasonTeamPlayerStats.id = DbUtils.stringToNumber(values.id);
+        newSeasonTeamPlayerStats.season_id = DbUtils.stringToNumber(values.season_id);
+        newSeasonTeamPlayerStats.team_id = DbUtils.stringToNumber(values.team_id);
+        newSeasonTeamPlayerStats.player_id = DbUtils.stringToNumber(values.player_id);
+        newSeasonTeamPlayerStats.games = DbUtils.stringToNumber(values.games);
+        newSeasonTeamPlayerStats.minutes_played = DbUtils.stringToNumber(values.minutes_played);
+        newSeasonTeamPlayerStats.field_goals = DbUtils.stringToNumber(values.field_goals);
+        newSeasonTeamPlayerStats.field_goal_attempts = DbUtils.stringToNumber(values.field_goal_attempts);
+        newSeasonTeamPlayerStats.field_goal_percentage = DbUtils.stringToNumber(values.field_goal_percentage);
+        newSeasonTeamPlayerStats.three_point_field_goals = DbUtils.stringToNumber(values.three_point_field_goals);
+        newSeasonTeamPlayerStats.three_point_field_goal_attempts = DbUtils.stringToNumber(values.three_point_field_goal_attempts);
+        newSeasonTeamPlayerStats.three_point_field_goal_percentage = DbUtils.stringToNumber(values.three_point_field_goal_percentage);
+        newSeasonTeamPlayerStats.two_point_field_goals = DbUtils.stringToNumber(values.two_point_field_goals);
+        newSeasonTeamPlayerStats.two_point_field_goal_attempts = DbUtils.stringToNumber(values.two_point_field_goal_attempts);
+        newSeasonTeamPlayerStats.two_point_field_goal_percentage = DbUtils.stringToNumber(values.two_point_field_goal_percentage);
+        newSeasonTeamPlayerStats.effective_field_goal_percentage = DbUtils.stringToNumber(values.effective_field_goal_percentage);
+        newSeasonTeamPlayerStats.free_throws = DbUtils.stringToNumber(values.free_throws);
+        newSeasonTeamPlayerStats.free_throw_attempts = DbUtils.stringToNumber(values.free_throw_attempts);
+        newSeasonTeamPlayerStats.free_throw_percentage = DbUtils.stringToNumber(values.free_throw_percentage);
+        newSeasonTeamPlayerStats.offensive_rebounds = DbUtils.stringToNumber(values.offensive_rebounds);
+        newSeasonTeamPlayerStats.difensive_rebounds = DbUtils.stringToNumber(values.difensive_rebounds);
+        newSeasonTeamPlayerStats.total_rebounds = DbUtils.stringToNumber(values.total_rebounds);
+        newSeasonTeamPlayerStats.assists = DbUtils.stringToNumber(values.assists);
+        newSeasonTeamPlayerStats.steals = DbUtils.stringToNumber(values.steals);
+        newSeasonTeamPlayerStats.blocks = DbUtils.stringToNumber(values.blocks);
+        newSeasonTeamPlayerStats.turnovers = DbUtils.stringToNumber(values.turnovers);
+        newSeasonTeamPlayerStats.personal_fouls = DbUtils.stringToNumber(values.personal_fouls);
+        newSeasonTeamPlayerStats.points = DbUtils.stringToNumber(values.points);
         return newSeasonTeamPlayerStats;
     }
 
     toDbValues(): any {
         return {
-            id: this.id,
-            season_id: this.season_id,
-            team_id: this.team_id,
-            player_id: this.player_id,
-            games: this.games,
-            minutes_played: this.minutes_played,
-            field_goals: this.field_goals,
-            field_goal_attempts: this.field_goal_attempts,
-            field_goal_percentage: this.field_goal_percentage,
-            three_point_field_goals: this.three_point_field_goals,
-            three_point_field_goal_attemps: this.three_point_field_goal_attemps,
-            three_point_field_goal_percentage: this.three_point_field_goal_percentage,
-            two_point_field_goals: this.two_point_field_goals,
-            two_point_field_goal_attempts: this.two_point_field_goal_attempts,
-            two_point_field_goal_percentage: this.two_point_field_goal_percentage,
-            effective_field_goal_percentage: this.effective_field_goal_percentage,
-            free_throws: this.free_throws,
-            free_throw_attempts: this.free_throw_attempts,
-            free_throw_percentage: this.free_throw_percentage,
-            offensive_rebounds: this.offensive_rebounds,
-            difensive_rebounds: this.difensive_rebounds,
-            total_rebounds: this.total_rebounds,
-            assists: this.assists,
-            steals: this.steals,
-            blocks: this.blocks,
-            turnovers: this.turnovers,
-            personal_fouls: this.personal_fouls,
-            points: this.points,
+            id: DbUtils.numberToString(this.id),
+            season_id: DbUtils.numberToString(this.season_id),
+            team_id: DbUtils.numberToString(this.team_id),
+            player_id: DbUtils.numberToString(this.player_id),
+            games: DbUtils.numberToString(this.games),
+            minutes_played: DbUtils.numberToString(this.minutes_played),
+            field_goals: DbUtils.numberToString(this.field_goals),
+            field_goal_attempts: DbUtils.numberToString(this.field_goal_attempts),
+            field_goal_percentage: DbUtils.numberToString(this.field_goal_percentage),
+            three_point_field_goals: DbUtils.numberToString(this.three_point_field_goals),
+            three_point_field_goal_attempts: DbUtils.numberToString(this.three_point_field_goal_attempts),
+            three_point_field_goal_percentage: DbUtils.numberToString(this.three_point_field_goal_percentage),
+            two_point_field_goals: DbUtils.numberToString(this.two_point_field_goals),
+            two_point_field_goal_attempts: DbUtils.numberToString(this.two_point_field_goal_attempts),
+            two_point_field_goal_percentage: DbUtils.numberToString(this.two_point_field_goal_percentage),
+            effective_field_goal_percentage: DbUtils.numberToString(this.effective_field_goal_percentage),
+            free_throws: DbUtils.numberToString(this.free_throws),
+            free_throw_attempts: DbUtils.numberToString(this.free_throw_attempts),
+            free_throw_percentage: DbUtils.numberToString(this.free_throw_percentage),
+            offensive_rebounds: DbUtils.numberToString(this.offensive_rebounds),
+            difensive_rebounds: DbUtils.numberToString(this.difensive_rebounds),
+            total_rebounds: DbUtils.numberToString(this.total_rebounds),
+            assists: DbUtils.numberToString(this.assists),
+            steals: DbUtils.numberToString(this.steals),
+            blocks: DbUtils.numberToString(this.blocks),
+            turnovers: DbUtils.numberToString(this.turnovers),
+            personal_fouls: DbUtils.numberToString(this.personal_fouls),
+            points: DbUtils.numberToString(this.points),
         }
     }
 
