@@ -20,7 +20,7 @@
                     <mat-icon>home</mat-icon>
                     <div class="flex flex-col">
                         <div class="text-2xl">
-                            {{ game?.home_team }} - {{ game?.visitor_team }}
+                            {{ game?.home_team }} {{ game?.home_points }} - {{ game?.visitor_points }} {{ game?.visitor_team }}
                         </div>
                         <div class="text-sm">
                             {{ game?.date | date : 'dd/MM/YYYY HH:mm' }}
@@ -90,7 +90,7 @@
                                                             {{ gameEvent.description }}
                                                         </div>
                                                         <div class="text-gray-600 text-xs">
-                                                            {{ gameEvent.from_time | number : '1.2-2' }} - {{ gameEvent.getToTime() | number : '1.2-2' }}
+                                                            {{ gameEvent.from_second | number : '1.2-2' }} - {{ gameEvent.getToSecond() | number : '1.2-2' }}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -102,10 +102,15 @@
                                     <div class="text-sm">
                                         Current time: {{ currentTime | number : '1.2-2' }}
                                     </div>
-                                    <div class="flex items-center cursor-pointer" [matTooltip]="autoScroll ? 'Disable autoscroll' : 'Enable autoscroll'" (click)="autoScroll = !autoScroll">
+                                    <div class="flex flex-row items-center gap-1 text-xs border rounded cursor-pointer px-2"
+                                        [ngClass]="autoScroll ? 'bg-green-300' : 'bg-gray-300'"
+                                        [matTooltip]="autoScroll ? 'Disable autoscroll' : 'Enable autoscroll'"
+                                        (click)="autoScroll = !autoScroll">
                                         @if (autoScroll) {
+                                            Autoscroll enabled
                                             <mat-icon>sync</mat-icon>
                                         } @else {
+                                            Autoscroll disabled
                                             <mat-icon>sync_disabled</mat-icon>
                                         }
                                     </div>
@@ -121,10 +126,10 @@
 
                         </mat-tab>
                         <mat-tab label="Shots">
-
+                            tabella con i marcatori in ordine di punti?
                         </mat-tab>
                         <mat-tab label="Assists">
-
+                            tabella con gli assist?
                         </mat-tab>
                     </mat-tab-group>
                 </div>

@@ -7,22 +7,22 @@ export class GameEventHelper extends GameEvent {
         return newGameEvent;
     }
 
-    getFromTime(): number {
-        let fromTime = 0;
-        if (this.from_time) {
-            fromTime = this.from_time;
+    getFromSecond(): number {
+        let fromSecond = 0;
+        if (this.from_second) {
+            fromSecond = this.from_second;
         }
-        return fromTime;
+        return fromSecond;
     }
 
-    getToTime(): number {
-        let toTime = 0;
-        if (this.to_time) {
-            toTime = this.to_time;
-        } else if (this.from_time) {
-            toTime = 1 + this.from_time;
+    getToSecond(): number {
+        let toSecond = 0;
+        if (this.to_second) {
+            toSecond = this.to_second;
+        } else if (this.from_second) {
+            toSecond = 1 + this.from_second;
         }
-        return toTime;
+        return toSecond;
     }
 
 }

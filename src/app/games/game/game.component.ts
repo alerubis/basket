@@ -94,7 +94,7 @@ export class GameComponent {
     loadGameEvents(): void {
         if (this.gameId) {
             const sort = new MatSort();
-            sort.active = 'from_time';
+            sort.active = 'from_second';
             sort.direction = 'asc';
             this._dbService.readList(new GameEventHelper(), { game_id: this.gameId }, undefined, sort).subscribe({
                 next: response => {
@@ -158,23 +158,24 @@ export class GameComponent {
     }
 
     isCurrentGameEvent(gameEvent: GameEventHelper): boolean {
-        const isCurrent = this.currentTime > gameEvent.getFromTime() && this.currentTime < gameEvent.getToTime();
+        const isCurrent = this.currentTime >= gameEvent.getFromSecond() && this.currentTime <= gameEvent.getToSecond();
         return isCurrent;
     }
 
     isPreviousGameEvent(gameEvent: GameEventHelper): boolean {
-        const isPrevious = this.currentTime > gameEvent.getToTime();
+        const isPrevious = this.currentTime > gameEvent.getToSecond();
         return isPrevious;
     }
 
     isNextGameEvent(gameEvent: GameEventHelper): boolean {
-        const isNext = this.currentTime < gameEvent.getFromTime();
+        const isNext = this.currentTime < gameEvent.getFromSecond();
         return isNext;
     }
 
     handleGameEventClick(gameEvent: GameEventHelper): void {
         if (this.youtubePlayer) {
-            this.youtubePlayer.seekTo(gameEvent.getFromTime(), true);
+            this.youtubePlayer.seekTo(gameEvent.getFromSecond(), true);
+            this.currentTime = gameEvent.getFromSecond();
         }
     }
     //#endregion

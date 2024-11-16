@@ -1,11 +1,8 @@
+# basketws
+
+Parte frontend scritta in Angular
+
 ## Come avviarlo
 
-(solo la prima volta)
-```
-npm install
-```
-
-Per avviarlo
-```
-ng serve
-```
+1. `npm install` se è la prima volta o ci sono nuove librerie
+2. `ng serve`

@@ -7,8 +7,8 @@ export class GameEvent implements Table {
     game_id: number | undefined;
     game_event_type_id: number | undefined;
     description: string | undefined;
-    from_time: number | undefined;
-    to_time: number | undefined;
+    from_second: number | undefined;
+    to_second: number | undefined;
 
     constructor(values?: any) {
         if (values) {
@@ -16,8 +16,8 @@ export class GameEvent implements Table {
             this.game_id = values.game_id;
             this.game_event_type_id = values.game_event_type_id;
             this.description = values.description;
-            this.from_time = values.from_time;
-            this.to_time = values.to_time;
+            this.from_second = values.from_second;
+            this.to_second = values.to_second;
         }
     }
 
@@ -31,8 +31,8 @@ export class GameEvent implements Table {
             'game_id',
             'game_event_type_id',
             'description',
-            'from_time',
-            'to_time',
+            'from_second',
+            'to_second',
         ];
     }
 
@@ -42,8 +42,8 @@ export class GameEvent implements Table {
         newGameEvent.game_id = DbUtils.stringToNumber(values.game_id);
         newGameEvent.game_event_type_id = DbUtils.stringToNumber(values.game_event_type_id);
         newGameEvent.description = values.description;
-        newGameEvent.from_time = DbUtils.stringToNumber(values.from_time);
-        newGameEvent.to_time = DbUtils.stringToNumber(values.to_time);
+        newGameEvent.from_second = DbUtils.stringToNumber(values.from_second);
+        newGameEvent.to_second = DbUtils.stringToNumber(values.to_second);
         return newGameEvent;
     }
 
@@ -53,8 +53,8 @@ export class GameEvent implements Table {
             game_id: DbUtils.numberToString(this.game_id),
             game_event_type_id: DbUtils.numberToString(this.game_event_type_id),
             description: this.description,
-            from_time: DbUtils.numberToString(this.from_time),
-            to_time: DbUtils.numberToString(this.to_time),
+            from_second: DbUtils.numberToString(this.from_second),
+            to_second: DbUtils.numberToString(this.to_second),
         }
     }
 
