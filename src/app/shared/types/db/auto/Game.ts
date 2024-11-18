@@ -10,6 +10,7 @@ export class Game implements Table {
     home_points: number | undefined;
     visitor_points: number | undefined;
     youtube_video_id: string | undefined;
+    youtube_game_id: string | undefined;
 
     constructor(values?: any) {
         if (values) {
@@ -20,6 +21,7 @@ export class Game implements Table {
             this.home_points = values.home_points;
             this.visitor_points = values.visitor_points;
             this.youtube_video_id = values.youtube_video_id;
+            this.youtube_game_id = values.youtube_game_id;
         }
     }
 
@@ -36,6 +38,7 @@ export class Game implements Table {
             'home_points',
             'visitor_points',
             'youtube_video_id',
+            'youtube_game_id',
         ];
     }
 
@@ -48,6 +51,7 @@ export class Game implements Table {
         newGame.home_points = DbUtils.stringToNumber(values.home_points);
         newGame.visitor_points = DbUtils.stringToNumber(values.visitor_points);
         newGame.youtube_video_id = values.youtube_video_id;
+        newGame.youtube_game_id = values.youtube_game_id;
         return newGame;
     }
 
@@ -60,6 +64,7 @@ export class Game implements Table {
             home_points: DbUtils.numberToString(this.home_points),
             visitor_points: DbUtils.numberToString(this.visitor_points),
             youtube_video_id: this.youtube_video_id,
+            youtube_game_id: this.youtube_game_id,
         }
     }
 

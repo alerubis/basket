@@ -45,9 +45,12 @@
                                     [videoId]="game?.youtube_video_id"
                                     (stateChange)="onPlayerStateChange($event)"/>
                             </div>
-                        </mat-tab>
-                        <mat-tab label="Movements">
-                            qui invece del video la rappresentazione grafica del campo con i movimenti dei giocatori?
+                            <div class="flex flex-col flex-auto w-full h-full">
+                                <youtube-player
+                                    #youtubePlayer1
+                                    [videoId]="game?.youtube_game_id"
+                                    (stateChange)="onPlayerStateChange($event)"/>
+                            </div>
                         </mat-tab>
                     </mat-tab-group>
                 </div>
@@ -145,9 +148,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @for (player of players; track $index) {
+                                    @for (player of boxScore; track $index) {
                                         <tr>
-                                            <td class="whitespace-nowrap">{{ player.name }}</td>
+                                            <td class="whitespace-nowrap">{{ player.player }}</td>
                                             <td class="whitespace-nowrap">{{ player.points }}</td>
                                             <td class="whitespace-nowrap">{{ player.assists }}</td>
                                             <td class="whitespace-nowrap">{{ player.rebounds }}</td>

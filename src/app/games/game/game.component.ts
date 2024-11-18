@@ -1,3 +1,4 @@
+import { VBoxScore } from './../../shared/types/db/auto/VBoxScore';
 import { DatePipe, DecimalPipe, NgClass } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -41,12 +42,6 @@ import { GameEventType } from '../../shared/types/db/auto/GameEventType';
 })
 export class GameComponent {
     displayedColumns: string[] = ['player', 'points', 'assists', 'rebounds', 'steals'];
-    players = [
-      { name: 'Player 1', points: 20, assists: 5, rebounds: 7, steals: 2 },
-      { name: 'Player 2', points: 15, assists: 8, rebounds: 10, steals: 1 },
-      { name: 'Player 3', points: 12, assists: 4, rebounds: 6, steals: 3 },
-      { name: 'Player 4', points: 18, assists: 6, rebounds: 9, steals: 0 },
-    ];
   
     // Data
     gameId: number | undefined;
@@ -54,9 +49,12 @@ export class GameComponent {
     gameEvents: GameEventHelper[] = [];
     gameEventTypes: GameEventType[] = [];
     gameLoading: boolean = false;
+    boxScore: VBoxScore[] = [];
 
     // Player
     @ViewChild('youtubePlayer', { static: false }) youtubePlayer!: YouTubePlayer;
+    @ViewChild('youtubePlayer1', { static: false }) youtubePlayer1!: YouTubePlayer;
+    
     @ViewChild('timelineContainer', { static: false }) timelineContainer!: ElementRef<HTMLDivElement>;;
     playerTrackingTimer: any;
     currentTime: number = 0;
@@ -78,6 +76,7 @@ export class GameComponent {
             this.loadGame();
             this.loadGameEvents();
             this.loadGameEventTypes();
+            this.loadBoxScore();
         });
     }
 
@@ -114,6 +113,19 @@ export class GameComponent {
         }
     }
 
+    loadBoxScore(): void {
+        if (this.gameId) {
+            this._dbService.readList(new VBoxScore(), { game_id: this.gameId }, undefined).subscribe({
+                next: response => {
+                    this.boxScore = response.rows as VBoxScore[];
+                },
+                error: error => {
+                    this.gameEvents = [];
+                }
+            });
+        }
+    }
+
     loadGameEventTypes(): void {
         this._dbService.readList(new GameEventType()).subscribe(r => {
             this.gameEventTypes = r.rows as GameEventType[];
@@ -142,8 +154,11 @@ export class GameComponent {
     startTrackingTime() {
         this.stopTrackingTime();
         this.playerTrackingTimer = setInterval(() => {
-            if (this.youtubePlayer) {
+            if (this.youtubePlayer ) {
                 this.handlePlayerTimeChange(this.youtubePlayer.getCurrentTime());
+            }
+            if (this.youtubePlayer1 ) {
+                this.handlePlayerTimeChange(this.youtubePlayer1.getCurrentTime());
             }
         }, 100);
     }
@@ -186,6 +201,10 @@ export class GameComponent {
     handleGameEventClick(gameEvent: GameEventHelper): void {
         if (this.youtubePlayer) {
             this.youtubePlayer.seekTo(gameEvent.getFromSecond(), true);
+            this.currentTime = gameEvent.getFromSecond();
+        }
+        if (this.youtubePlayer1) {
+            this.youtubePlayer1.seekTo(gameEvent.getFromSecond(), true);
             this.currentTime = gameEvent.getFromSecond();
         }
     }
