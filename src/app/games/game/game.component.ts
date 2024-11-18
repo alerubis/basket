@@ -40,7 +40,14 @@ import { GameEventType } from '../../shared/types/db/auto/GameEventType';
     ]
 })
 export class GameComponent {
-
+    displayedColumns: string[] = ['player', 'points', 'assists', 'rebounds', 'steals'];
+    players = [
+      { name: 'Player 1', points: 20, assists: 5, rebounds: 7, steals: 2 },
+      { name: 'Player 2', points: 15, assists: 8, rebounds: 10, steals: 1 },
+      { name: 'Player 3', points: 12, assists: 4, rebounds: 6, steals: 3 },
+      { name: 'Player 4', points: 18, assists: 6, rebounds: 9, steals: 0 },
+    ];
+  
     // Data
     gameId: number | undefined;
     game: Game | undefined;
@@ -116,6 +123,10 @@ export class GameComponent {
     getGameEventTypeIcon(id: number | undefined): string | undefined {
         const eventType = this.gameEventTypes.find(x => x.id === id);
         return eventType?.icon;
+    }
+    getGameEventDescription(id: number | undefined): string | undefined {
+        const eventType = this.gameEventTypes.find(x => x.id === id);
+        return eventType?.description;
     }
     //#endregion
 

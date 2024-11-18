@@ -80,19 +80,30 @@
                                                 (click)="handleGameEventClick(gameEvent)">
                                                 @if (!last) {
                                                     <div class="absolute top-3 left-8 w-0.5 h-full -ml-px bg-gray-300"></div>
+                                                    <div class="absolute top-3 right-8 w-0.5 h-full -ml-px bg-gray-300"></div>
                                                 }
                                                 <div class="relative flex flex-auto">
-                                                    <div class="flex items-center justify-center w-10 h-10 mr-4 rounded-full" [ngClass]="isCurrentGameEvent(gameEvent) ? 'bg-blue-500' : 'bg-gray-500'">
-                                                        <mat-icon class="text-white">{{ getGameEventTypeIcon(gameEvent.game_event_type_id) }}</mat-icon>
-                                                    </div>
-                                                    <div class="flex flex-col flex-auto items-start">
+                                                    @if (gameEvent.home) {
+                                                        <div class="flex items-center justify-center w-10 h-10 mr-4 rounded-full" [ngClass]="isCurrentGameEvent(gameEvent) ? 'bg-blue-500' : 'bg-gray-500'">
+                                                            <mat-icon [ngClass]="gameEvent.made === true? 'text-green-500' : gameEvent.made === false ? 'text-red-500' : 'text-white'">{{ getGameEventTypeIcon(gameEvent.game_event_type_id) }}</mat-icon>
+                                                        </div>
+                                                    }
+                                                    <div class="flex flex-col flex-auto"  [ngClass]="gameEvent.home === true? 'text-left' : 'text-right'">
                                                         <div>
-                                                            {{ gameEvent.description }}
+                                                            {{ gameEvent.giocatore_1 }} {{ getGameEventDescription(gameEvent.game_event_type_id) }} 
+                                                            @if(gameEvent.giocatore_2){
+                                                                to {{ gameEvent.giocatore_2 }}
+                                                            }
                                                         </div>
                                                         <div class="text-gray-600 text-xs">
                                                             {{ gameEvent.from_second | number : '1.2-2' }} - {{ gameEvent.getToSecond() | number : '1.2-2' }}
                                                         </div>
                                                     </div>
+                                                    @if (!gameEvent.home) {
+                                                        <div class="flex items-center justify-center w-10 h-10 ml-4 rounded-full" [ngClass]="isCurrentGameEvent(gameEvent) ? 'bg-blue-500' : 'bg-gray-500'">
+                                                            <mat-icon [ngClass]="gameEvent.made === true? 'text-green-500' : gameEvent.made === false ? 'text-red-500' : 'text-white'">{{ getGameEventTypeIcon(gameEvent.game_event_type_id) }}</mat-icon>
+                                                        </div>
+                                                    }
                                                 </div>
                                             </li>
                                         }
@@ -123,17 +134,35 @@
                 <div class="basket-card w-full h-2/5">
                     <mat-tab-group class="h-full" [mat-stretch-tabs]="false">
                         <mat-tab label="Summary">
-
+                            <table class="basket-table bg-card">
+                                <thead class="sticky top-0 z-10">
+                                    <tr>
+                                        <th mat-sort-header="name" class="min-w-16">Player</th>
+                                        <th mat-sort-header="points" class="min-w-16">Points</th>
+                                        <th mat-sort-header="assists" class="min-w-16">Assists</th>
+                                        <th mat-sort-header="rebounds" class="min-w-16">Rebounds</th>
+                                        <th mat-sort-header="steals" class="min-w-16">Steals</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (player of players; track $index) {
+                                        <tr>
+                                            <td class="whitespace-nowrap">{{ player.name }}</td>
+                                            <td class="whitespace-nowrap">{{ player.points }}</td>
+                                            <td class="whitespace-nowrap">{{ player.assists }}</td>
+                                            <td class="whitespace-nowrap">{{ player.rebounds }}</td>
+                                            <td class="whitespace-nowrap">{{ player.steals }}</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
                         </mat-tab>
                         <mat-tab label="Shots">
-                            tabella con i marcatori in ordine di punti?
-                        </mat-tab>
-                        <mat-tab label="Assists">
-                            tabella con gli assist?
+                            Foto campo con i tiri
                         </mat-tab>
                     </mat-tab-group>
                 </div>
-
+                
             </div>
 
         </div>

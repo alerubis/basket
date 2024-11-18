@@ -28,4 +28,18 @@ export class DbUtils {
         return undefined;
     }
 
+    public static stringToBoolean(value: string | undefined): boolean | undefined {
+        if (value === null || value === undefined) {
+            return undefined;
+        }
+        return value === '1' || value.toLowerCase() === 'true';
+    }
+
+    public static booleanToString(value: boolean | undefined): string | undefined {
+        if (value === undefined || value === null) {
+            return undefined;
+        }
+        return value ? '1' : '0';
+    }
+
 }
