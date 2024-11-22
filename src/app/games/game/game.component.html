@@ -93,7 +93,7 @@
                                                     }
                                                     <div class="flex flex-col flex-auto"  [ngClass]="gameEvent.home === true? 'text-left' : 'text-right'">
                                                         <div>
-                                                            {{ gameEvent.giocatore_1 }} {{ getGameEventDescription(gameEvent.game_event_type_id) }} 
+                                                            {{ gameEvent.giocatore_1 }} {{ getGameEventDescription(gameEvent.game_event_type_id) }}
                                                             @if(gameEvent.giocatore_2){
                                                                 to {{ gameEvent.giocatore_2 }}
                                                             }
@@ -135,7 +135,7 @@
                 </div>
 
                 <div class="basket-card w-full h-2/5">
-                    <mat-tab-group class="h-full" [mat-stretch-tabs]="false">
+                    <mat-tab-group class="basket-tab-group" [mat-stretch-tabs]="false">
                         <mat-tab label="Summary">
                             <table class="basket-table bg-card">
                                 <thead class="sticky top-0 z-10">
@@ -161,11 +161,32 @@
                             </table>
                         </mat-tab>
                         <mat-tab label="Shots">
-                            Foto campo con i tiri
+                            <div class="w-full h-full bg-orange-300 relative overflow-hidden">
+
+                                <!-- Bordo del campo -->
+                                <div class="absolute inset-0 border border-black"></div>
+
+                                <!-- Loop per i tiri -->
+                                @for (shot of getShots(); track $index) {
+                                    <div
+                                        class="flex items-center bg-white rounded-full h-3 w-3 absolute cursor-pointer"
+                                        [ngStyle]="{'left': shot.x + '%', 'top': shot.y + '%'}"
+                                        [matTooltip]="getEventFullDescription(shot)"
+                                        (click)="handleGameEventClick(shot)"
+                                    >
+                                        @if (shot.made) {
+                                            <mat-icon class="micro-icon text-green-500">circle</mat-icon>
+                                        } @else {
+                                            <mat-icon class="micro-icon text-red-500">close</mat-icon>
+                                        }
+                                    </div>
+                                }
+
+                            </div>
                         </mat-tab>
                     </mat-tab-group>
                 </div>
-                
+
             </div>
 
         </div>

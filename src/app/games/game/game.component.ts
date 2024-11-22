@@ -1,5 +1,5 @@
 import { VBoxScore } from './../../shared/types/db/auto/VBoxScore';
-import { DatePipe, DecimalPipe, NgClass } from '@angular/common';
+import { DatePipe, DecimalPipe, NgClass, NgStyle } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButton, MatButtonModule } from '@angular/material/button';
@@ -17,6 +17,8 @@ import { DbService } from '../../shared/services/db.service';
 import { Game } from '../../shared/types/db/auto/Game';
 import { GameEventHelper } from '../../shared/types/db/helper/GameEventHelper';
 import { GameEventType } from '../../shared/types/db/auto/GameEventType';
+import { NgxEchartsDirective, provideEcharts } from 'ngx-echarts';
+import { EChartsOption } from 'echarts';
 
 @Component({
     selector: 'app-game',
@@ -33,16 +35,21 @@ import { GameEventType } from '../../shared/types/db/auto/GameEventType';
         MatTooltipModule,
         FormsModule,
         NgClass,
+        NgStyle,
         YouTubePlayer,
         MatProgressBarModule,
         MessageBoxComponent,
         DatePipe,
         DecimalPipe,
+        NgxEchartsDirective,
+    ],
+    providers: [
+        provideEcharts(),
     ]
 })
 export class GameComponent {
     displayedColumns: string[] = ['player', 'points', 'assists', 'rebounds', 'steals'];
-  
+
     // Data
     gameId: number | undefined;
     game: Game | undefined;
@@ -54,11 +61,13 @@ export class GameComponent {
     // Player
     @ViewChild('youtubePlayer', { static: false }) youtubePlayer!: YouTubePlayer;
     @ViewChild('youtubePlayer1', { static: false }) youtubePlayer1!: YouTubePlayer;
-    
+
     @ViewChild('timelineContainer', { static: false }) timelineContainer!: ElementRef<HTMLDivElement>;;
     playerTrackingTimer: any;
     currentTime: number = 0;
     autoScroll: boolean = true;
+
+    shotsChartOptions: EChartsOption = {};
 
     constructor(
         private _activatedRoute: ActivatedRoute,
@@ -105,6 +114,7 @@ export class GameComponent {
             this._dbService.readList(new GameEventHelper(), { game_id: this.gameId }, undefined, sort).subscribe({
                 next: response => {
                     this.gameEvents = response.rows as GameEventHelper[];
+                    this.loadShotsChart();
                 },
                 error: error => {
                     this.gameEvents = [];
@@ -140,6 +150,17 @@ export class GameComponent {
         const eventType = this.gameEventTypes.find(x => x.id === id);
         return eventType?.description;
     }
+
+    getEventFullDescription(gameEvent: GameEventHelper): string {
+        let description = '';
+        description += gameEvent.giocatore_1;
+        description += ' ' + this.getGameEventDescription(gameEvent.game_event_type_id);
+        if (gameEvent.giocatore_2) {
+            description += ' to ' + gameEvent.giocatore_2;
+        }
+        return description;
+    }
+
     //#endregion
 
     //#region Player
@@ -207,6 +228,16 @@ export class GameComponent {
             this.youtubePlayer1.seekTo(gameEvent.getFromSecond(), true);
             this.currentTime = gameEvent.getFromSecond();
         }
+    }
+    //#endregion
+
+    //#region Chart
+    loadShotsChart(): void {
+
+    }
+
+    getShots(): GameEventHelper[] {
+        return this.gameEvents.filter(x => x.game_event_type_id === 4 || x.game_event_type_id === 5);
     }
     //#endregion
 
