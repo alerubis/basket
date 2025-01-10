@@ -1,23 +1,55 @@
-<div class="flex flex-col items-center justify-center p-6 sm:p-8">
+<div class="container">
+    <h1>Seleziona Squadre e Giocatori</h1>
 
-    <div class="text-gray-500 text-7xl mb-6">
-        Home
+    <!-- Selezione Prima Squadra -->
+    <div>
+        <mat-form-field appearance="fill">
+            <mat-label>Squadra 1</mat-label>
+            <mat-select [(value)]="selectedTeam1" (selectionChange)="onTeamChange(1)">
+                <mat-option *ngFor="let team of teams" [value]="team.id">{{ team.name }}</mat-option>
+            </mat-select>
+        </mat-form-field>
     </div>
 
-    <div class="flex flex-row items-center justify-center gap-6 border rounded p-6">
-
-        <mat-form-field class="form-field-dense" appearance="outline" subscriptSizing="dynamic">
-            <input matInput [(ngModel)]="parametroUno" type="number">
-        </mat-form-field>
-
-        <mat-form-field class="form-field-dense" appearance="outline" subscriptSizing="dynamic">
-            <input matInput [(ngModel)]="parametroDue" type="number">
-        </mat-form-field>
-
-        <button mat-flat-button (click)="testPython()">
-            Test python
-        </button>
-
+    <!-- Selezione Giocatori Squadra 1 -->
+    <div class="flex flex-row gap-6">
+        <div *ngFor="let i of [0, 1, 2, 3, 4]">
+            <mat-form-field appearance="fill">
+                <mat-label>Giocatore {{ i + 1 }}</mat-label>
+                <mat-select [(value)]="players1[i]">
+                    <mat-option *ngFor="let player of playersTeam1" [value]="player.id">
+                        {{ player.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
     </div>
 
+    <!-- Selezione Seconda Squadra -->
+    <div>
+        <mat-form-field appearance="fill">
+            <mat-label>Squadra 2</mat-label>
+            <mat-select [(value)]="selectedTeam2" (selectionChange)="onTeamChange(2)">
+                <mat-option *ngFor="let team of teams" [value]="team.id">{{ team.name }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <!-- Selezione Giocatori Squadra 2 -->
+    <div class="flex flex-row gap-6">
+        <div *ngFor="let i of [0, 1, 2, 3, 4]">
+            <mat-form-field appearance="fill">
+                <mat-label>Giocatore {{ i + 1 }}</mat-label>
+                <mat-select [(value)]="players2[i]">
+                    <mat-option *ngFor="let player of playersTeam2" [value]="player.id">
+                        {{ player.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <button mat-flat-button (click)="testPython()">
+        Test python
+    </button>
 </div>

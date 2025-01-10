@@ -17,7 +17,7 @@ export class DbService {
         return new Observable((observer) => {
             this._wsService.wsCall('db/' + table.getName() + '/read', {
                 skip: (paginator?.pageIndex || 0) * (paginator?.pageSize || 100),
-                take: (paginator?.pageSize || 100),
+                take: (paginator?.pageSize || 1000),
                 where: where,
                 orderBy: (sort?.active && sort.direction ? { [sort.active]: sort.direction } : undefined),
             }).subscribe({
