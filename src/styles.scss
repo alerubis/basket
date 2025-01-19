@@ -161,6 +161,44 @@ youtube-player iframe {
   width: 100% !important;
   height: 100% !important;
 }
+.responsive-img {
+    height: 128px; /* Altezza fissa */
+    width: auto; /* Larghezza proporzionale */
+    object-fit: contain; /* Garantisce che l'immagine sia interamente visibile */
+    display: block; /* Evita spazi bianchi sotto l'immagine */
+}
+.example-container {
+    height: 100%;
+    position: relative;
+}
+
+.example-sidenav-content {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+  
+.example-sidenav {
+    width: 300px;
+    padding: 20px;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.drawer-content {
+    max-width: 80%; // Forza la larghezza del 60%
+    overflow-y: auto; // Scroll nel drawer
+}
+  
+.container {
+    overflow-y: auto;
+}
+
+.loading-container {
+    width: 100%;
+    margin-top: 16px;
+}
+  
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

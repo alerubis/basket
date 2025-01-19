@@ -23,6 +23,8 @@
     "@angular/youtube-player": "^18.2.13",
     "echarts": "^5.5.1",
     "ngx-echarts": "^18.0.0",
+    "plotly.js": "^2.35.3",
+    "plotly.js-dist-min": "^2.35.3",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
@@ -32,6 +34,8 @@
     "@angular/cli": "^18.0.3",
     "@angular/compiler-cli": "^18.0.0",
     "@types/jasmine": "~5.1.0",
+    "@types/plotly.js": "^2.35.2",
+    "@types/plotly.js-dist-min": "^2.3.4",
     "autoprefixer": "^10.4.20",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",

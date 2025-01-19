@@ -5,11 +5,13 @@ export class Team implements Table {
 
     id: number | undefined;
     name: string | undefined;
+    image: string | undefined;
 
     constructor(values?: any) {
         if (values) {
             this.id = values.id;
             this.name = values.name;
+            this.image = values.image;
         }
     }
 
@@ -21,6 +23,7 @@ export class Team implements Table {
         return [
             'id',
             'name',
+            'image',
         ];
     }
 
@@ -28,6 +31,7 @@ export class Team implements Table {
         const newTeam = new Team();
         newTeam.id = DbUtils.stringToNumber(values.id);
         newTeam.name = values.name;
+        newTeam.image = values.image;
         return newTeam;
     }
 
@@ -35,6 +39,7 @@ export class Team implements Table {
         return {
             id: DbUtils.numberToString(this.id),
             name: this.name,
+            image: this.image,
         }
     }
 

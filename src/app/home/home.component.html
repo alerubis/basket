@@ -1,55 +1,123 @@
-<div class="container">
-    <h1>Seleziona Squadre e Giocatori</h1>
+<mat-drawer-container class="example-container" autosize>
+    <!-- Contenuto principale -->
+    <div class="container p-6 flex flex-col gap-6 h-screen overflow-y-auto">
 
-    <!-- Selezione Prima Squadra -->
-    <div>
-        <mat-form-field appearance="fill">
-            <mat-label>Squadra 1</mat-label>
-            <mat-select [(value)]="selectedTeam1" (selectionChange)="onTeamChange(1)">
-                <mat-option *ngFor="let team of teams" [value]="team.id">{{ team.name }}</mat-option>
-            </mat-select>
-        </mat-form-field>
-    </div>
+        <!-- Selezione Prima Squadra -->
+        <div class="flex flex-row items-center justify-between gap-6">
+            <!-- Sezione Select -->
+            <div class="flex flex-row items-center gap-3 pb-3" style="width: 50%;">
+                <img src="{{ getImageTeam(selectedTeam1 || -1) || noImage }}" width="64px" height="64px">
+                <mat-form-field appearance="fill" class="w-full" style="margin-bottom: -1.25em">
+                    <mat-label>Squadra 1</mat-label>
+                    <mat-select [(value)]="selectedTeam1" (selectionChange)="onTeamChange(1)">
+                        <mat-option *ngFor="let team of teams" [value]="team.id">
+                            <div class="flex flex-row gap-3">
+                                <img src="{{ team.image || noImage }}" width="32px" height="32px">
+                                {{ team.name }}
+                            </div>
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <!-- Bottone -->
+            <button mat-flat-button (click)="openDrawer(drawer, -1)"><!--[disabled]="disableButton()"-->
+                <span class="whitespace-nowrap">Analizza situazione</span>
+            </button>
+        </div>
 
-    <!-- Selezione Giocatori Squadra 1 -->
-    <div class="flex flex-row gap-6">
-        <div *ngFor="let i of [0, 1, 2, 3, 4]">
-            <mat-form-field appearance="fill">
-                <mat-label>Giocatore {{ i + 1 }}</mat-label>
-                <mat-select [(value)]="players1[i]">
-                    <mat-option *ngFor="let player of playersTeam1" [value]="player.id">
-                        {{ player.name }}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
+        <!-- Selezione Giocatori Squadra 1 -->
+        <div class="grid grid-cols-5 gap-3">
+            <div class="flex flex-col items-center" *ngFor="let i of [0, 1, 2, 3, 4]">
+                <img src="{{ getImage(players1[i] || -1) || noImage }}" class="responsive-img w-16 h-16" (click)="openDrawer(drawer, players1[i])">
+                <mat-form-field appearance="fill" class="w-full">
+                    <mat-label>Giocatore {{ i + 1 }}</mat-label>
+                    <mat-select [(value)]="players1[i]">
+                        <mat-option *ngFor="let player of getPlayer(1, players1[i])" [value]="player.id">
+                            <div class="flex flex-row gap-3 items-center">
+                                <img src="{{ player.image || noImage }}" class="w-8 h-8">
+                                {{ player.name }}
+                            </div>
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <!-- Selezione Seconda Squadra -->
+        <div class="flex flex-row items-center justify-between gap-6">
+            <!-- Sezione Select -->
+            <div class="flex flex-row items-center gap-3 pb-3" style="width: 50%;">
+                <img src="{{ getImageTeam(selectedTeam2 || -1) || noImage }}" width="64px" height="64px">
+                <mat-form-field appearance="fill" class="w-full" style="margin-bottom: -1.25em">
+                    <mat-label>Squadra 2</mat-label>
+                    <mat-select [(value)]="selectedTeam2" (selectionChange)="onTeamChange(2)">
+                        <mat-option *ngFor="let team of teams" [value]="team.id">
+                            <div class="flex flex-row gap-3">
+                                <img src="{{ team.image || noImage }}" width="32px" height="32px">
+                                {{ team.name }}
+                            </div>
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <!-- Selezione Giocatori Squadra 2 -->
+        <div class="grid grid-cols-5 gap-3">
+            <div class="flex flex-col items-center" *ngFor="let i of [0, 1, 2, 3, 4]">
+                <img src="{{ getImage(players2[i] || -1) || noImage }}" class="responsive-img w-16 h-16" (click)="openDrawer(drawer, players2[i])">
+                <mat-form-field appearance="fill" class="w-full">
+                    <mat-label>Giocatore {{ i + 1 }}</mat-label>
+                    <mat-select [(value)]="players2[i]">
+                        <mat-option *ngFor="let player of getPlayer(2, players2[i])" [value]="player.id">
+                            <div class="flex flex-row gap-3 items-center">
+                                <img src="{{ player.image || noImage }}" class="w-8 h-8">
+                                {{ player.name }}
+                            </div>
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
         </div>
     </div>
 
-    <!-- Selezione Seconda Squadra -->
-    <div>
-        <mat-form-field appearance="fill">
-            <mat-label>Squadra 2</mat-label>
-            <mat-select [(value)]="selectedTeam2" (selectionChange)="onTeamChange(2)">
-                <mat-option *ngFor="let team of teams" [value]="team.id">{{ team.name }}</mat-option>
-            </mat-select>
-        </mat-form-field>
-    </div>
-
-    <!-- Selezione Giocatori Squadra 2 -->
-    <div class="flex flex-row gap-6">
-        <div *ngFor="let i of [0, 1, 2, 3, 4]">
-            <mat-form-field appearance="fill">
-                <mat-label>Giocatore {{ i + 1 }}</mat-label>
-                <mat-select [(value)]="players2[i]">
-                    <mat-option *ngFor="let player of playersTeam2" [value]="player.id">
-                        {{ player.name }}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
+    <!-- Drawer -->
+    <mat-drawer #drawer position="end" mode="over" class="drawer-content" [style.width.%]="80" class="p-6">
+        <!-- Spinner di caricamento -->
+        <div *ngIf="loadingPython" class="loading-container">
+            <mat-progress-bar
+            mode="indeterminate"
+            ></mat-progress-bar>
         </div>
-    </div>
 
-    <button mat-flat-button (click)="testPython()">
-        Test python
-    </button>
-</div>
+        <!-- Contenuto del drawer -->
+        <div class="flex flex-col" *ngIf="giocatoreSelezionato === null">
+            <div class="flex flex-row">
+                <div id="Schema1C" style="width: 50%; height: 400px;"></div>
+                <div id="Schema1D" style="width: 50%; height: 400px;"></div>
+            </div>
+            <div class="flex flex-row">
+                <div id="Schema2C" style="width: 50%; height: 400px;"></div>
+                <div id="Schema2D" style="width: 50%; height: 400px;"></div>
+            </div>
+            <div class="flex flex-row">
+                <div id="Schema3C" style="width: 50%; height: 400px;"></div>
+                <div id="Schema3D" style="width: 50%; height: 400px;"></div>
+            </div>
+            <div class="flex flex-row">
+                <div id="Schema4C" style="width: 50%; height: 400px;"></div>
+                <div id="Schema4D" style="width: 50%; height: 400px;"></div>
+            </div>
+            <div class="flex flex-row">
+                <div id="Schema5C" style="width: 50%; height: 400px;"></div>
+                <div id="Schema5D" style="width: 50%; height: 400px;"></div>
+            </div>
+        </div>
+        <div class="flex flex-col" *ngIf="giocatoreSelezionato !== null">
+            <div id="partita" style="width: 100%; height: 500px;"></div>
+            <div id="azione" style="width: 100%; height: 500px;"></div>
+            <div id="distance" style="width: 100%; height: 500px;"></div>
+        </div>
+    </mat-drawer>
+  
+</mat-drawer-container>
